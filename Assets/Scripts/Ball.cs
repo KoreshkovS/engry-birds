@@ -1,16 +1,20 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Ball : MonoBehaviour
 {
     [SerializeField] private Rigidbody2D _rb;
     [SerializeField] private SpringJoint2D _sj;
     [SerializeField] private Rigidbody2D _hookRb;
+    [SerializeField] private GameObject _nextBall;
     [SerializeField] private float _delay = 0.15f;
     [SerializeField] private float _maxDragDistance = 2f;
+    [SerializeField] private float _spawnDelay = 2f;
 
     private bool isPressed = false;
+   
 
     private void Update()
     {
@@ -49,5 +53,17 @@ public class Ball : MonoBehaviour
 
         _sj.enabled = false;
         this.enabled = false;
+
+        yield return new WaitForSeconds(_spawnDelay);
+
+        if (_nextBall != null)
+        {
+            _nextBall.SetActive(true);
+        }
+        else
+        {
+            SceneManager.LoadScene("SampleScene");
+        }
+        
     }
 }
