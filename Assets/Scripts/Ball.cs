@@ -62,6 +62,7 @@ public class Ball : MonoBehaviour
         }
         else
         {
+            Enemy.EnemiesAlive = 0;
             SceneManager.LoadScene("SampleScene");
         }
         
